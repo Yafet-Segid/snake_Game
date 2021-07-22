@@ -1,15 +1,15 @@
 let border = document.getElementById("gameCanvas");
 let canvasContext = border.getContext("2d");
 
+// document.getElementById("btn").addEventListener("click", function () {});
 let snake = {
   body: [{ x: 100, y: 100 }],
 };
 
 window.onload = function () {
-  setInterval(callBoth, 800 / 3);
+  setInterval(callBoth, 800 / 6);
 
   function callBoth() {
-    circleSnake();
     movingAdd();
     drawSnake();
     moveSnake();
@@ -32,6 +32,7 @@ function changeSnakeDirection() {
 }
 
 function moveSnake() {
+  const snakeCopy = snake.body.map((part) => Object.assign({}, part));
   switch (snake.direction) {
     case "up":
       snake.body[0].y -= 20;
@@ -45,6 +46,9 @@ function moveSnake() {
     case "left":
       snake.body[0].x -= 20;
       break;
+  }
+  for (let i = 1; i < snake.body.length; i++) {
+    snake.body[i] = snakeCopy[i - 1];
   }
 }
 
@@ -70,20 +74,13 @@ function drawSnake() {
   });
 }
 
-// make snake circle
-function circleSnake(centerX, centerY, radius, borderColor) {
-  canvasContext.fillStyle = borderColor;
-  canvasContext.beginPath();
-  canvasContext.arc(centerX, centerY, radius, 0, Math.PI * 2, true);
-  canvasContext.fill();
-}
-
 // Game Over red image
 function boarderGameOver() {
   if (snake.body[0].x > border.width || snake.body[0].x < 0) {
-    let img = new Image();
-    img.src = "gameover.png";
-    canvasContext.drawImage(img, 210, 210, 350, 350);
+    gameBorder();
+    // let img = new Image();
+    // img.src = "gameover.png";
+    // canvasContext.drawImage(img, 210, 210, 350, 350);
   }
   if (snake.body[0].y > border.height || snake.body[0].y < 0) {
     let img = new Image();
@@ -91,8 +88,8 @@ function boarderGameOver() {
     canvasContext.drawImage(img, 210, 210, 350, 350);
   }
 }
-//
 
+//
 let apple = {
   x: Math.floor((Math.random() * border.width) % 20) * 20,
   y: Math.floor((Math.random() * border.height) % 20) * 20,
@@ -102,11 +99,27 @@ function drawApple() {
   gameBorder(apple.x, apple.y, 20, 20, "red");
 }
 
+let score = 0;
+
 function eatApple() {
   if (snake.body[0].x === apple.x && snake.body[0].y === apple.y) {
-    drawSnake();
+    (apple.x = Math.floor((Math.random() * border.width) % 20) * 20),
+      (apple.y = Math.floor((Math.random() * border.width) % 20) * 20),
+      snake.body.push({ x: apple.x, y: apple.y });
+    score = score + 10;
+    const higher = (document.getElementById("displayScore").innerHTML = score);
+    if (score > higher) {
+      document.getElementById("HighestScore");
 
-    let snakeTail = snake[snake.length];
-    snake.body.push({ x: snakeTail.x, y: snakeTail.y });
+      localStorage.setItem("HighestScore", innerHTML.score);
+    }
   }
+}
+
+//
+
+if (apple.x === snake.body[i].x && apple.y === snake.body[i].y) {
+  let img = new Image();
+  img.src = "gameover.png";
+  canvasContext.drawImage(img, 210, 210, 350, 350);
 }
