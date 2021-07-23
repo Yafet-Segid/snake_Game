@@ -94,7 +94,7 @@ let apple = {
   x: Math.floor((Math.random() * border.width) % 20) * 20,
   y: Math.floor((Math.random() * border.height) % 20) * 20,
 };
-
+//
 function drawApple() {
   gameBorder(apple.x, apple.y, 20, 20, "red");
 }
@@ -110,7 +110,7 @@ function eatApple() {
     const higher = (document.getElementById("displayScore").innerHTML = score);
     if (score > higher) {
       document.getElementById("HighestScore");
-
+      //
       localStorage.setItem("HighestScore", innerHTML.score);
     }
   }
