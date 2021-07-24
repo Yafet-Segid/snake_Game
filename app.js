@@ -123,3 +123,5 @@ if (apple.x === snake.body[i].x && apple.y === snake.body[i].y) {
   img.src = "gameover.png";
   canvasContext.drawImage(img, 210, 210, 350, 350);
 }
+
+// test
