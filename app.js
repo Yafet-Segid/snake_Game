@@ -88,12 +88,12 @@ function boarderGameOver() {
   }
 }
 
-//
+// check
 let apple = {
   x: Math.floor((Math.random() * border.width) % 20) * 20,
   y: Math.floor((Math.random() * border.height) % 20) * 20,
 };
-//
+// check
 function drawApple() {
   gameBorder(apple.x, apple.y, 20, 20, "red");
 }
